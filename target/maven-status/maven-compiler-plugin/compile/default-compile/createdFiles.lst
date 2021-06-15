@@ -1,0 +1,5 @@
+org\example\LWords\Models\Greeting.class
+org\example\LWords\repos\RecordRepository.class
+org\example\LWords\Controllers\HomeController.class
+org\example\LWords\ServingWebContentApplication.class
+org\example\LWords\Models\Record.class
