@@ -1,7 +1,10 @@
 package org.example.LWords.repos;
 
-import org.springframework.data.repository.CrudRepository;
+import org.example.LWords.Models.Record;
+import org.example.LWords.Models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RecordRepository extends CrudRepository<org.example.LWords.Models.Record, Long> {
 
+public interface RecordRepository extends JpaRepository<Record, Long> {
+    Iterable<Record> findByUser(User user);
 }

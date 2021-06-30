@@ -9,6 +9,7 @@ import java.util.List;
 public class Record {
     public static int ProgressLength;
     @Id
+    @Column(name = "record_id")
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
@@ -16,6 +17,10 @@ public class Record {
     private String translations;
     private int progress;
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 
     public Record() {
     }
