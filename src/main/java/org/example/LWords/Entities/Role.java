@@ -1,4 +1,4 @@
-package org.example.LWords.Models;
+package org.example.LWords.Entities;
 
 import javax.persistence.*;
 

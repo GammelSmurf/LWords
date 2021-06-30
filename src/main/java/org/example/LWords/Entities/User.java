@@ -1,4 +1,4 @@
-package org.example.LWords.Models;
+package org.example.LWords.Entities;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

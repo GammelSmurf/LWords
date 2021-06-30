@@ -1,7 +1,7 @@
 package org.example.LWords.Services.Impl;
 
-import org.example.LWords.Models.Record;
-import org.example.LWords.Models.User;
+import org.example.LWords.Entities.Record;
+import org.example.LWords.Entities.User;
 import org.example.LWords.Services.RecordService;
 import org.example.LWords.repos.RecordRepository;
 import org.springframework.stereotype.Service;

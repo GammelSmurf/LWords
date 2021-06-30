@@ -1,6 +1,6 @@
 package org.example.LWords.Services.Impl;
 
-import org.example.LWords.Models.User;
+import org.example.LWords.Entities.User;
 import org.example.LWords.Security.MyUserDetails;
 import org.example.LWords.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

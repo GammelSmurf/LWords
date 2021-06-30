@@ -1,8 +1,7 @@
-package org.example.LWords.Models;
+package org.example.LWords.Entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "records")
