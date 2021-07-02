@@ -1,19 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './Components/Home';
-import React, {Component} from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Profile from "./Components/Profile";
+import Login from "./Components/Login";
+import Home from "./Components/Home";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
 
-class App extends Component {
-    render() {
-        return (
-            <Router>
-                <Switch>
-                    <Route path='/' exact={true} component={Home}/>
-                </Switch>
-            </Router>
-        );
-    }
+function App() {
+    return (
+      <BrowserRouter>
+        <Switch>
+            <Route path='/home' exact={true} component={Home}/>
+          <Route path='/home/profile' exact={true} component={Profile}/>
+          <Route path='/auth/signin' exact={true} component={Login}/>
+        </Switch>
+      </BrowserRouter>
+  );
 }
 
 export default App;

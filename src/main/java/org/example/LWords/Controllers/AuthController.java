@@ -1,33 +1,33 @@
 package org.example.LWords.Controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.example.LWords.Entities.AuthRequest;
 import org.example.LWords.Security.JwtUtil;
+import org.example.LWords.Services.AuthService;
+import org.example.LWords.Services.RecordService;
+import org.example.LWords.dto.MessageResponse;
+import org.example.LWords.repos.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.example.LWords.Entities.Record;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
-    @Autowired
-    private JwtUtil jwtUtil;
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+    private final AuthService authService;
 
-    @PostMapping
-    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception{
+    @PostMapping("/signin")
+    public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception{
         try {
-            authenticationProvider.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
-            );
+            return ResponseEntity.ok(authService.authenticateUser(authRequest));
         }
-        catch (Exception ex){
-            throw new Exception("Invalid username or password");
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
-        return jwtUtil.generateToken(authRequest.getUserName());
     }
 }
