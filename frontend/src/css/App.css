@@ -1,0 +1,30 @@
+.my-custom-container{
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .my-custom-container{
+        width:600px;
+    }
+}
+
+@media (min-width: 992px) {
+    .my-custom-container{
+        width:720px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .my-custom-container{
+        width:700px;
+    }
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid #EB6864;
+    font-family: "News Cycle","Arial Narrow Bold",sans-serif;
+}

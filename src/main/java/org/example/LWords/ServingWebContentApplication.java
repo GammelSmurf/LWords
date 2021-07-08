@@ -8,8 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ServingWebContentApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServingWebContentApplication.class,args);
+
         /*BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String pass = encoder.encode("12345");
-        System.out.println(pass);*/
+        String pass1 = encoder.encode("dkfl");
+        String pass2 = encoder.encode("123");
+        System.out.println(pass1);
+        System.out.println(pass2);*/
     }
 }

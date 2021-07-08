@@ -14,6 +14,8 @@ public class User{
     private String username;
     private String password;
     private boolean enabled;
+    private int progressLength;
+    private int translationCount;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -72,5 +74,20 @@ public class User{
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+    public int getProgressLength() {
+        return progressLength;
+    }
+
+    public void setProgressLength(int progressLength) {
+        this.progressLength = progressLength;
+    }
+
+    public int getTranslationCount() {
+        return translationCount;
+    }
+
+    public void setTranslationCount(int translationCount) {
+        this.translationCount = translationCount;
     }
 }

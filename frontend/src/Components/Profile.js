@@ -1,18 +1,7 @@
-import React, {Component} from "react";
-import logo from "../logo.svg";
+import React from "react";
 import AuthService from "../services/AuthService";
 
-class Profile extends Component {
-    /*state = {
-        records: []
-    };
-
-    async componentDidMount() {
-        const response = await fetch('/auth/hello');
-        const body = await response.json();
-        this.setState({records: body});
-    }*/
-    render() {
+const Profile = () =>{
         const currentUser = AuthService.getCurrentUser();
         return(
             <div className="container">
@@ -33,9 +22,7 @@ class Profile extends Component {
                     {currentUser.roles &&
                     currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                 </ul>
-                <a href="/home">Go to home</a>
             </div>
         )
-    }
 }
 export default Profile;

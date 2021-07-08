@@ -1,0 +1,62 @@
+.recordTable {
+    margin: 50px auto 0;
+}
+
+.recordTableSearchBar{
+
+}
+.recordTableSearchBar label {
+    display: inline-block!important;
+    margin-right: 10px;
+    width:33%;
+}
+
+@media (max-width: 798px) {
+    .recordTableSearchBar label{
+        width:60%;
+    }
+}
+.recordTableSearchBar input {
+    border-radius: 10px;
+}
+
+.addRecord {
+    margin-bottom: 5px;
+}
+
+.reversoButton{
+    margin-right: 10px;
+}
+
+.expandRowUnderLine {
+    width: 100%;
+}
+.expandRowDate {
+    font-family: "News Cycle","Arial Narrow Bold",sans-serif;
+    float: left;
+    margin-top: 7px;
+}
+.expandRowButtons {
+    float: right;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 500px) {
+    .expandRowButtons{
+        float: left;
+    }
+}
+
+.responseModalText {
+    animation-duration: 1.5s;
+    animation-name: responseModalTextAnimation;
+}
+@keyframes responseModalTextAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

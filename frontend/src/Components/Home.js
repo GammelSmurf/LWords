@@ -1,8 +1,10 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import UserService from "../services/UserService";
+import RecordTable from "./RecordTable";
 
 const Home = () => {
-        const [content, setContent] = useState([{},{}]);
+        const [content, setContent] = useState([]);
+        //const [modalActive, setModalActive] = useState(false);
 
         useEffect(() => {
             UserService.getUserRecords().then(
@@ -22,14 +24,25 @@ const Home = () => {
             );
         }, []);
 
-
+        const data = []
+        let arrTranslations = []
+        let mainTranslation = ''
+        let moreTranslations = ''
+        let parsedDate = ''
+        content.forEach(item => {
+            arrTranslations = item.translations.split(';')
+            mainTranslation = arrTranslations[0];
+            arrTranslations.splice(0,1)
+            moreTranslations = arrTranslations.join(', ').slice(0,-2)
+            parsedDate = item.date.split('T').join(' ').slice(0, -7)
+            data.push({id:item.id, phrase: item.phrase, mainTranslation: mainTranslation, progress: item.progress,
+                moreTranslations: moreTranslations, date: parsedDate
+            })
+            }
+        )
         return(
             <div className="container">
-                {content.map(record =>
-                    <div key={record.id}>
-                        {record.phrase}
-                    </div>
-                )}
+                <RecordTable data={data}/>
             </div>
         )
 }
