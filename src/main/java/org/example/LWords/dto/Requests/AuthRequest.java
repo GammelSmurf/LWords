@@ -1,4 +1,4 @@
-package org.example.LWords.Entities;
+package org.example.LWords.dto.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

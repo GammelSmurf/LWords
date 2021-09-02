@@ -1,4 +1,4 @@
-package org.example.LWords.dto;
+package org.example.LWords.dto.Responses;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +14,6 @@ public class JwtResponse {
     private final String type = "Bearer";
     private String username;
     private List<String> roles;
+    private int progressLength;
+    private int translationCount;
 }

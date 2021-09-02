@@ -1,5 +1,6 @@
 package org.example.LWords.Security;
 
+import org.example.LWords.Entities.ERole;
 import org.example.LWords.Services.Impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -45,8 +46,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/auth/**").permitAll()
-                .antMatchers("/home/**").hasAnyAuthority("USER","ADMIN")
+                .authorizeRequests().antMatchers("/auth/signin").permitAll()
+                .antMatchers("/auth/signup").hasAuthority(ERole.ADMIN.name())
+                .antMatchers("/auth/users").hasAuthority(ERole.ADMIN.name())
+                .antMatchers("/home/**").hasAnyAuthority(ERole.USER.name(),ERole.ADMIN.name())
+                /*.antMatchers("/home/profile").hasAnyAuthority(ERole.USER.name(),ERole.ADMIN.name())
+                .antMatchers("/home/learning").hasAnyAuthority(ERole.USER.name(),ERole.ADMIN.name())*/
                 .anyRequest().authenticated()
                 .and().exceptionHandling().
                 and().sessionManagement()

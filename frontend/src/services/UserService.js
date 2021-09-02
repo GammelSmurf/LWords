@@ -1,26 +1,23 @@
 import axios from "axios";
 import authHeader from "./AuthHeader";
 
-const API_URL = "http://localhost:8080/";
+const API_URL = "http://localhost:8080/home/";
 
 const getUserRecords = () => {
-    return axios.get(API_URL + "home", { headers: authHeader() });
+    return axios.get(API_URL, { headers: authHeader() });
 };
 
-/*
-const getUserBoard = () => {
-    return axios.get(API_URL + "user", { headers: authHeader() });
-};
+const getLearningRecords = () => {
+    return axios.get(API_URL + "learning", { headers: authHeader() });
+}
 
-const getModeratorBoard = () => {
-    return axios.get(API_URL + "mod", { headers: authHeader() });
-};
-
-const getAdminBoard = () => {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
-};
-*/
+const updateUser = (user) => {
+    return axios
+        .put(API_URL + "profile", user, {headers: authHeader()})
+}
 
 export default {
-    getUserRecords
+    getUserRecords,
+    getLearningRecords,
+    updateUser
 };

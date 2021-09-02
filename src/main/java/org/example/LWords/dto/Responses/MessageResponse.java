@@ -1,4 +1,4 @@
-package org.example.LWords.dto;
+package org.example.LWords.dto.Responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

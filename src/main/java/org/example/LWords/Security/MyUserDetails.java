@@ -27,7 +27,7 @@ public class MyUserDetails implements UserDetails {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority(role.getName().name()));
         }
 
         return authorities;
@@ -35,6 +35,13 @@ public class MyUserDetails implements UserDetails {
 
     public Long getId(){
         return user.getId();
+    }
+
+    public int getProgressLength() {
+        return user.getProgressLength();
+    }
+    public int getTranslationCount(){
+        return user.getTranslationCount();
     }
 
     @Override

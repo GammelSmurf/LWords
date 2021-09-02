@@ -1,20 +1,14 @@
 package org.example.LWords.Controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.LWords.Entities.AuthRequest;
-import org.example.LWords.Security.JwtUtil;
-import org.example.LWords.Security.MyUserDetails;
+import org.example.LWords.Entities.User;
+import org.example.LWords.Services.UserService;
+import org.example.LWords.dto.Requests.AuthRequest;
 import org.example.LWords.Services.AuthService;
-import org.example.LWords.Services.RecordService;
-import org.example.LWords.dto.MessageResponse;
-import org.example.LWords.repos.RecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.LWords.dto.Responses.MessageResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.example.LWords.Entities.Record;
 
 @CrossOrigin("*")
 @RestController
@@ -22,11 +16,16 @@ import org.example.LWords.Entities.Record;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    private final RecordRepository recordRepository;
+    private final UserService userService;
 
-    @GetMapping("/hello")
-    public Iterable<Record> hello(){
-        return recordRepository.findAll();
+    @PostMapping("/signup")
+    public ResponseEntity<?> createUser(@RequestBody AuthRequest authRequest) throws Exception{
+        try {
+            return ResponseEntity.ok(authService.createUser(authRequest));
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
     }
 
     @PostMapping("/signin")
@@ -38,4 +37,20 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
+
+    @GetMapping("/users")
+    public Iterable<User> getUsers(){
+        return userService.getUsers();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<HttpStatus> removeUser(@PathVariable("id") long id) {
+        try {
+            userService.deleteUser(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

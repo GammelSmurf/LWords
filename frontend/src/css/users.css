@@ -1,0 +1,20 @@
+.usersListGroup {
+    margin-top: 20px;
+    width: 45%;
+}
+.usersListGroup .userCell {
+    margin-top: 5px;
+}
+
+.usersListGroup .list-group-item {
+    width: 80%;
+    display: inline-block;
+}
+
+.usersListGroup button {
+    float: right;
+}
+
+.expandRowDeleteButton button {
+    float: right;
+}

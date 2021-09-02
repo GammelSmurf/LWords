@@ -1,28 +1,39 @@
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+import React, { useState} from "react";
+import {Form, Button} from 'react-bootstrap'
 
 import AuthService from "../services/AuthService";
 
-const required = (value) => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required!
-            </div>
-        );
-    }
-};
 
 const Login = (props) => {
-    const form = useRef();
-    const checkBtn = useRef();
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [validated, setValidated] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [responseTextVisibility, setResponseTextVisibility] = useState(false);
+
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            setValidated(true);
+        }
+        else {
+            AuthService.login(username, password)
+                .then(
+                    () => {
+                        props.history.push('/home');
+                    },
+                    () => {
+                        setResponseTextVisibility(false);
+                        setMessage('Invalid username or password');
+                        setResponseTextVisibility(true);
+                    }
+                );
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
@@ -34,87 +45,42 @@ const Login = (props) => {
         setPassword(password);
     };
 
-    const handleLogin = (e) => {
-        console.log("mobile")
-        e.preventDefault();
-
-        setMessage("");
-        setLoading(true);
-
-        form.current.validateAll();
-
-        if (checkBtn.current.context._errors.length === 0) {
-            AuthService.login(username, password)
-                .then(
-                () => {
-                    props.history.push("/home");
-                    window.location.reload();
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
-        } else {
-            setLoading(false);
-        }
-    };
-
     return (
-        <div className="container">
-            <div className="col-6">
-                    <Form onSubmit={handleLogin} ref={form}>
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Input
+            <div className="container">
+                <div className="wrapper">
+                    <div className="standardPageHeader">
+                        <h2>Please sign in</h2>
+                        <hr />
+                    </div>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit} className="col-sm-4">
+                        <Form.Group controlId="username">
+                            <Form.Label><b>Username</b></Form.Label>
+                            <Form.Control
+                                required
                                 type="text"
-                                className="form-control"
-                                name="username"
-                                value={username}
                                 onChange={onChangeUsername}
-                                validations={[required]}
                             />
-                        </div>
+                        </Form.Group>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <Input
+                        <Form.Group controlId="password">
+                            <Form.Label><b>Password</b></Form.Label>
+                            <Form.Control
+                                required
                                 type="password"
-                                className="form-control"
-                                name="password"
-                                value={password}
                                 onChange={onChangePassword}
-                                validations={[required]}
                             />
-                        </div>
-
-                        <div className="form-group" style={{tabSize: "center"}}>
-                            <button className="btn btn-primary btn-block" disabled={loading} style={{width: "50%"}}>
-                                {loading && (
-                                    <span className="spinner-border spinner-border-sm"></span>
-                                )}
-                                <span>Login</span>
-                            </button>
-                        </div>
-
-                        {message && (
-                            <div className="form-group">
-                                <div className="alert alert-danger" role="alert">
-                                    {message}
-                                </div>
-                            </div>
-                        )}
-                        <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                        </Form.Group>
+                        <Form.Group>
+                            {responseTextVisibility &&
+                                <Form.Text className="text-danger responseText">
+                                    <b>{message}</b>
+                                </Form.Text>
+                            }
+                        </Form.Group>
+                        <Button type="submit" className="formSubmitButton">Login</Button>
                     </Form>
                 </div>
-        </div>
+            </div>
     );
 };
 

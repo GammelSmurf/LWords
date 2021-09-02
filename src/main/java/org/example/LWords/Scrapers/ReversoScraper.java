@@ -5,11 +5,8 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 public class ReversoScraper {
-    public String getTranslations(String phrase){
+    public String getTranslations(String phrase, int translationCount){
         try (final WebClient webClient = new WebClient()) {
             webClient.getOptions().setCssEnabled(false);
             webClient.getOptions().setJavaScriptEnabled(false);
@@ -18,11 +15,12 @@ public class ReversoScraper {
             Iterable<DomElement> anchors = div.getChildElements();
             StringBuilder result = new StringBuilder();
             int iterator = 0;
-            for (DomElement el:anchors
-            ) {
-                iterator++;
-                if(iterator < 13 && el.getAttribute("title").length() > 75)
+            for (DomElement el:anchors) {
+                if(iterator <= translationCount && el.getAttribute("title").length() > 75)
+                {
+                    iterator++;
                     result.append(el.getAttribute("title").substring(75).split("<")[0]).append(";");
+                }
             }
             return result.toString();
         }

@@ -1,8 +1,6 @@
 package org.example.LWords.Entities;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "records")
@@ -19,19 +17,28 @@ public class Record {
     private LocalDateTime date;
     private int correctAnsCount;
     private int incorrectAnsCount;
+    private Boolean isFinished;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    public Record() {
-    }
+    public Record() {}
 
-    public Record(String phrase, String translations, LocalDateTime date, User user) {
+    public Record(String phrase, String translations, int progress, Boolean isFinished, LocalDateTime date, User user) {
         this.phrase = phrase;
         this.translations = translations;
+        this.progress = progress;
         this.date = date;
         this.user = user;
+        this.isFinished = isFinished;
+    }
+    public Boolean getFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(Boolean finished) {
+        isFinished = finished;
     }
     public Long getId() {
         return id;

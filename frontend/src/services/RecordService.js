@@ -3,33 +3,44 @@ import authHeader from "./AuthHeader";
 
 
 const API_URL = "http://localhost:8080/home/";
-let message;
+let responseMessage;
 
     const addRecord = (newPhrase) =>{
-        //const [message, setMessage] = useState("");
         return axios
             .post(API_URL, {
                 newPhrase
             }, {headers: authHeader()})
             .then(response => {
-                message = response.data.message;
-                //console.log(message)
-                //response.data.message
-                //window.location.reload();
+                responseMessage = response.data;
             });
     };
 
-    const getMessage = () => {
-        return message;
+    const getResponse = () => {
+        return responseMessage;
     }
 
-
-    const removeRecord = (recordId) =>{
+    const removeRecords = (recordIds) =>{
     return axios
-        .delete(API_URL + recordId, {headers: authHeader()})
-        .then(response => {
+        .post(API_URL + 'delete/',{recordIds}, {headers: authHeader()})
+        .then(() => {
             window.location.reload();
-        });
+        })
     };
 
-export default {addRecord, removeRecord, getMessage};
+    const updateRecord = (recordId, record) => {
+        return axios
+            .put(API_URL + "learning/" + recordId, record, {headers: authHeader()})
+    }
+
+    const importCSV = (formData) => {
+        return axios
+            .post(API_URL + "upload/", formData,{headers: authHeader()}).then(
+                response => responseMessage = response.data.successCount
+            )
+    }
+
+    const getStatistic = () => {
+        return axios.get(API_URL + "profile", { headers: authHeader() });
+    }
+
+export default {addRecord, removeRecord: removeRecords, getMessage: getResponse, updateRecord, importCSV, getStatistic};
