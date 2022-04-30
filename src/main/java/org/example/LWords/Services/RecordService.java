@@ -2,7 +2,6 @@ package org.example.LWords.Services;
 
 import org.example.LWords.Entities.Record;
 import org.example.LWords.Entities.User;
-import org.example.LWords.dto.Responses.MessageResponse;
 import org.example.LWords.dto.Responses.StatisticResponse;
 import org.springframework.web.multipart.MultipartFile;
 

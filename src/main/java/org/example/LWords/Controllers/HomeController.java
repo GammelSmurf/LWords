@@ -9,12 +9,12 @@ import org.example.LWords.Security.MyUserDetails;
 import org.example.LWords.Services.RecordService;
 import org.example.LWords.Services.UserService;
 import org.example.LWords.dto.Responses.ImportResponse;
-import org.example.LWords.dto.Responses.MessageResponse;
 import org.example.LWords.dto.Responses.StatisticResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin("*")

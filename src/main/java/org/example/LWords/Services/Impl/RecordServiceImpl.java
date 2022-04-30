@@ -7,6 +7,7 @@ import org.example.LWords.Entities.User;
 import org.example.LWords.Scrapers.ReversoScraper;
 import org.example.LWords.Security.MyUserDetails;
 import org.example.LWords.Services.RecordService;
+import org.example.LWords.Services.ScrapperClient;
 import org.example.LWords.dto.Responses.MessageResponse;
 import org.example.LWords.dto.Responses.StatisticResponse;
 import org.example.LWords.repos.ActivityStatisticRepository;
@@ -28,6 +29,7 @@ public class RecordServiceImpl implements RecordService {
     private final RecordRepository recordRepository;
     private final ActivityStatisticRepository statisticRepository;
     private final UserRepository userRepository;
+    private final ScrapperClient scrapperClient;
 
     public Iterable<Record> getRecordsByUser(User user){
         return recordRepository.findByUser(user);
@@ -46,8 +48,9 @@ public class RecordServiceImpl implements RecordService {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDetails.getUser();
         if(!recordRepository.existsByPhraseAndUser(phrase, user)){
-            ReversoScraper scraper = new ReversoScraper();
-            String translations = scraper.getTranslations(phrase,userDetails.getTranslationCount());
+
+            String translations = scrapperClient.getTranslations(phrase, user.getTranslationCount());
+
             int progress;
             boolean isFinished;
             if(inputProgress >= user.getProgressLength()) {
@@ -64,7 +67,7 @@ public class RecordServiceImpl implements RecordService {
             }
 
             if(translations != null){
-                Record record = new Record(phrase, translations, progress, isFinished, LocalDateTime.now(), userDetails.getUser());
+                Record record = new Record(phrase, translations, progress, isFinished, LocalDateTime.now(), user);
                 recordRepository.save(record);
                 return "Added successfully";
             }

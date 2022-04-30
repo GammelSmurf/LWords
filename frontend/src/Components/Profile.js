@@ -101,7 +101,7 @@ const Profile = () =>{
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" fontSize={24}>
                 {pieData[index].value > 0 && pieData[index].value}
             </text>
         );

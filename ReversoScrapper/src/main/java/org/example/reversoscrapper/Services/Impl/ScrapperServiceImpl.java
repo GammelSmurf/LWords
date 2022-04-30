@@ -1,12 +1,18 @@
-package org.example.LWords.Scrapers;
+package org.example.reversoscrapper.Services.Impl;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import lombok.RequiredArgsConstructor;
+import org.example.reversoscrapper.Services.ScrapperService;
+import org.springframework.stereotype.Service;
 
-public class ReversoScraper {
-    public String getTranslations(String phrase, int translationCount){
+@Service
+@RequiredArgsConstructor
+public class ScrapperServiceImpl implements ScrapperService {
+    @Override
+    public String getTranslations(String phrase, int translationCount) {
         try (final WebClient webClient = new WebClient()) {
             webClient.getOptions().setCssEnabled(false);
             webClient.getOptions().setJavaScriptEnabled(false);
@@ -17,7 +23,7 @@ public class ReversoScraper {
             StringBuilder result = new StringBuilder();
             int iterator = 0;
             for (DomElement el:anchors) {
-                if(iterator <= translationCount && el.getAttribute("title").length() > 75)
+                if(iterator < translationCount && el.getAttribute("title").length() > 75)
                 {
                     iterator++;
                     result.append(el.getAttribute("title").substring(75).split("<")[0]).append(";");
