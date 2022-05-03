@@ -1,4 +1,4 @@
-package org.example.reversoscrapper;
+package org.example.translator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

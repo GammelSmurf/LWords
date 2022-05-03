@@ -1,16 +1,18 @@
-package org.example.reversoscrapper.Services.Impl;
+package org.example.translator.Services.Impl;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.RequiredArgsConstructor;
-import org.example.reversoscrapper.Services.ScrapperService;
+import lombok.extern.slf4j.Slf4j;
+import org.example.translator.Services.ReversoScrapperService;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class ScrapperServiceImpl implements ScrapperService {
+public class ReversoScrapperServiceImpl implements ReversoScrapperService {
     @Override
     public String getTranslations(String phrase, int translationCount) {
         try (final WebClient webClient = new WebClient()) {
@@ -32,7 +34,8 @@ public class ScrapperServiceImpl implements ScrapperService {
             return result.toString();
         }
         catch (Exception ex){
-            return null;
+            log.error("Error while getting translation from ReversoContext!", ex);
         }
+        return null;
     }
 }
