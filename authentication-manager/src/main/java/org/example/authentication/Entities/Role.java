@@ -1,10 +1,10 @@
-package org.example.LWords.Entities;
+package org.example.authentication.Entities;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "roles")
+@Table(name = "am_roles")
 public class Role {
     @Id
     @Column(name = "role_id")

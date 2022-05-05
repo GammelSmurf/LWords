@@ -25,10 +25,10 @@ const App = withRouter(({location})=> {
                 {location.pathname !== '/auth/signin' && <MyNavBar />}
                 <div>
                     <Switch>
-                        <Route path='/home' exact={true} component={Home}/>
-                        <Route path='/home/profile' exact={true} component={Profile}/>
-                        <Route path='/home/users' exact={true} component={Users}/>
-                        <Route path='/home/learning' exact={true} component={Learning}/>
+                        <Route path='/core' exact={true} component={Home}/>
+                        <Route path='/core/profile' exact={true} component={Profile}/>
+                        <Route path='/core/users' exact={true} component={Users}/>
+                        <Route path='/core/learning' exact={true} component={Learning}/>
                         <Route path='/auth/signin' exact={true} component={Login}/>
                         <Route path='/auth/signup' exact={true} component={Register}/>
                     </Switch>

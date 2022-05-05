@@ -16,12 +16,15 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("translator", r -> r.path("/translator/**")
+                .route("translator-manager", r -> r.path("/translator/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8085/"))
-                .route("auth", r -> r.path("/auth/**")
+                .route("authentication-manager", r -> r.path("/auth/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:9090/"))
+                .route("core", r -> r.path("/core/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("http://localhost:8080/"))
                 .build();
     }
 }

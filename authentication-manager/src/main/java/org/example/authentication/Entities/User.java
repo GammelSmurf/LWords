@@ -1,4 +1,5 @@
-package org.example.LWords.Entities;
+package org.example.authentication.Entities;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -6,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
-public class User{
+@Table(name = "am_users")
+public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,81 +21,28 @@ public class User{
     private int translationCount;
     private LocalDateTime date;
 
-    private int learnedWordsCount;
-    private String hardestWord;
-    private int hardestWordIncCount;
-    private int statisticNumberOfWeek;
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "users_roles",
+            name = "am_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy="user",orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Record> records;
+    public User() {
+    }
 
-    @OneToMany(mappedBy= "user",orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<ActivityStatistic> statistics;
-
-    public User(){ }
-
-    public User(String username, String password, LocalDateTime date, int numberOfWeek){
+    public User(String username, String password, LocalDateTime date) {
         this.username = username;
         this.password = password;
         enabled = true;
         progressLength = 10;
         translationCount = 12;
         this.date = date;
-        learnedWordsCount = 0;
-        hardestWord = "";
-        hardestWordIncCount = 0;
-        statisticNumberOfWeek = numberOfWeek;
-    }
-    public int getHardestWordIncCount() {
-        return hardestWordIncCount;
     }
 
-    public void setHardestWordIncCount(int hardestWordIncCount) {
-        this.hardestWordIncCount = hardestWordIncCount;
-    }
-
-    public int getLearnedWordsCount() {
-        return learnedWordsCount;
-    }
-
-    public void setLearnedWordsCount(int learnedWordsCount) {
-        this.learnedWordsCount = learnedWordsCount;
-    }
-
-    public String getHardestWord() {
-        return hardestWord;
-    }
-
-    public void setHardestWord(String hardestWord) {
-        this.hardestWord = hardestWord;
-    }
-
-    public int getStatisticNumberOfWeek() {
-        return statisticNumberOfWeek;
-    }
-
-    public void setStatisticNumberOfWeek(int statisticNumberOfWeek) {
-        this.statisticNumberOfWeek = statisticNumberOfWeek;
-    }
-
-    public void deleteRole(Role role){
+    public void deleteRole(Role role) {
         this.roles.remove(role);
-    }
-
-    public Set<ActivityStatistic> getStatistics() {
-        return statistics;
-    }
-
-    public void setStatistics(Set<ActivityStatistic> statistics) {
-        this.statistics = statistics;
     }
 
     public LocalDateTime getDate() {
@@ -105,13 +53,6 @@ public class User{
         this.date = date;
     }
 
-    public Set<Record> getRecords() {
-        return records;
-    }
-
-    public void setRecords(Set<Record> records) {
-        this.records = records;
-    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -152,6 +93,7 @@ public class User{
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
     public int getProgressLength() {
         return progressLength;
     }

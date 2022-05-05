@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./AuthHeader";
 
-const API_URL = "http://localhost:8080/auth/";
+const API_URL = "http://localhost:8090/auth/";
 
 const login = (userName, password) => {
     return axios
@@ -32,19 +32,6 @@ const logout = () => {
 const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
-
-const getUsers = () => {
-    return axios.get(API_URL + "users", { headers: authHeader() })
-}
-
-const removeUser = (userId) => {
-    return axios
-        .delete(API_URL + "users/" + userId, {headers: authHeader()})
-        .then(() => {
-            window.location.reload();
-        });
-}
-
 
 export default {
     login,

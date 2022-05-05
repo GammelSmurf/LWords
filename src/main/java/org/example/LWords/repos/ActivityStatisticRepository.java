@@ -9,5 +9,6 @@ import java.time.DayOfWeek;
 
 public interface ActivityStatisticRepository extends JpaRepository<ActivityStatistic, Long> {
     ActivityStatistic findByDayOfWeekAndUser(DayOfWeek dayOfWeek, User user);
+
     Iterable<ActivityStatistic> findByUser(User user);
 }

@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecordRepository extends JpaRepository<Record, Long> {
     Iterable<Record> findByUser(User user);
-    Boolean existsByPhraseAndUser(String phrase, User user);
+
+    Boolean existsByPhraseAndUser(String phrase, User username);
+
     Record getRecordById(Long id);
 
 }

@@ -35,7 +35,7 @@ public class ReversoScrapperServiceImpl implements ReversoScrapperService {
         }
         catch (Exception ex){
             log.error("Error while getting translation from ReversoContext!", ex);
+            return null;
         }
-        return null;
     }
 }

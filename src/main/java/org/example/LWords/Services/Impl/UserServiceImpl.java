@@ -36,10 +36,11 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
     }
+
     @Override
     public void updateUser(User user) {
         User currentUser = userRepository.getUserById(user.getId());
-        ActivityStatistic statistic = statisticRepository.findByDayOfWeekAndUser(DayOfWeek.from(LocalDate.now()),currentUser);
+        ActivityStatistic statistic = statisticRepository.findByDayOfWeekAndUser(DayOfWeek.from(LocalDate.now()), currentUser);
         currentUser.setProgressLength(user.getProgressLength());
         currentUser.setTranslationCount(user.getTranslationCount());
 
@@ -48,15 +49,15 @@ public class UserServiceImpl implements UserService {
         int learnedWordsCount = 0;
         for (Record record :
                 records) {
-            if(record.getProgress() >= progressLength && !record.getFinished()) {
+            if (record.getProgress() >= progressLength && !record.getFinished()) {
                 learnedWordsCount++;
                 record.setProgress(100);
                 record.setFinished(true);
                 recordRepository.save(record);
             }
         }
-        statistic.setTotalLearnedWordsCount(statistic.getTotalLearnedWordsCount()+learnedWordsCount);
-        currentUser.setLearnedWordsCount(currentUser.getLearnedWordsCount()+learnedWordsCount);
+        statistic.setTotalLearnedWordsCount(statistic.getTotalLearnedWordsCount() + learnedWordsCount);
+        currentUser.setLearnedWordsCount(currentUser.getLearnedWordsCount() + learnedWordsCount);
         statisticRepository.save(statistic);
         userRepository.save(currentUser);
     }

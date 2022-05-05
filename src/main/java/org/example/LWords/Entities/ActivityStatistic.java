@@ -8,11 +8,11 @@ import java.time.DayOfWeek;
 public class ActivityStatistic {
     @Id
     @Column(name = "statistic_id")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private DayOfWeek dayOfWeek;
@@ -20,9 +20,10 @@ public class ActivityStatistic {
     private int totalIncorrectAnsCount;
     private int totalLearnedWordsCount;
 
-    public ActivityStatistic(){}
+    public ActivityStatistic() {
+    }
 
-    public ActivityStatistic(User user, DayOfWeek dayOfWeek){
+    public ActivityStatistic(User user, DayOfWeek dayOfWeek) {
         this.user = user;
         this.dayOfWeek = dayOfWeek;
         totalCorrectAnsCount = 0;
